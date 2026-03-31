@@ -9,7 +9,14 @@ export default function EntranceToggle({ onToggle }) {
         name="toggle" 
         type="checkbox" 
         onChange={(e) => {
-          if(e.target.checked) onToggle();
+          if(e.target.checked) {
+            // Force synchronous playback directly inside the user-interaction event to bypass strict browser Autoplay policies (iOS/Safari/Chrome)
+            const videoElem = document.querySelector('.mini-video-player');
+            if (videoElem) {
+              videoElem.play().catch(err => console.error("Sync autoplay bypass failed:", err));
+            }
+            onToggle();
+          }
         }}
       />
       <label className="toggle-label" htmlFor="toggle">

@@ -20,7 +20,7 @@ export default function Layout() {
     if (!audioRef.current || !hasStarted) return;
     
     // Determine the track source
-    const fallbackTrack = '/Wanjine  Kírorerwa - Wanjine [I.Am.The.Wan!] (1080p, h264).mp4';
+    const fallbackTrack = '/wanjine.mp4';
     let src = fallbackTrack;
     if (currentTrack === 'wewe-ni-wangu') src = fallbackTrack; // Replace when file exists
     else if (currentTrack === 'juice-wrld') src = fallbackTrack;

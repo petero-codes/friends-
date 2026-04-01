@@ -19,35 +19,20 @@ export default function Layout() {
   useEffect(() => {
     if (!audioRef.current || !hasStarted) return;
     
-    // Determine the track source
-    const fallbackTrack = '/wanjine.mp4';
-    let src = fallbackTrack;
-    if (currentTrack === 'wewe-ni-wangu') src = fallbackTrack; // Replace when file exists
-    else if (currentTrack === 'juice-wrld') src = fallbackTrack;
-    else if (currentTrack === 'favour') src = fallbackTrack;
-
-    if (src) {
-      const safeSrc = encodeURI(src);
-      if (audioRef.current.src.endsWith(safeSrc) && !audioRef.current.paused) {
-        // already playing this track
-      } else {
-        // basic crossfade or swap
-        audioRef.current.src = safeSrc;
-        audioRef.current.volume = 0;
-        audioRef.current.play().then(() => {
-          let v = 0;
-          const fade = setInterval(() => {
-            if (v < 0.2) {
-              v += 0.02;
-              audioRef.current.volume = v;
-            } else {
-              clearInterval(fade);
-            }
-          }, 100);
-        }).catch(e => console.error("Audio block:", e));
-      }
-    }
-  }, [currentTrack, hasStarted]);
+    // Smooth volume fade-in
+    audioRef.current.volume = 0;
+    audioRef.current.play().then(() => {
+      let v = 0;
+      const fade = setInterval(() => {
+        if (v < 0.2) {
+          v += 0.02;
+          audioRef.current.volume = v;
+        } else {
+          clearInterval(fade);
+        }
+      }, 100);
+    }).catch(e => console.error("Audio block:", e));
+  }, [hasStarted]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -92,6 +77,7 @@ export default function Layout() {
 
       <video 
         ref={audioRef} 
+        src="/wanjine.mp4"
         loop 
         className={hasStarted ? "mini-video-player visible" : "mini-video-player"}
         playsInline

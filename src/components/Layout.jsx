@@ -79,6 +79,7 @@ export default function Layout() {
         ref={audioRef} 
         src="/wanjine.mp4"
         loop 
+        preload="auto"
         className={hasStarted ? "mini-video-player visible" : "mini-video-player"}
         playsInline
         controls

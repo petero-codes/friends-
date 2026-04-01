@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
 import Layout from './components/Layout';
 import Entry from './pages/Entry';
@@ -47,7 +47,7 @@ export default function App() {
     <>
       <GlobalCursor />
       <ThemeProvider>
-      <BrowserRouter>
+      <MemoryRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Entry />} />
@@ -57,7 +57,7 @@ export default function App() {
             <Route path="final" element={<Final />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </MemoryRouter>
     </ThemeProvider>
     </>
   );
